@@ -1,4 +1,4 @@
-CreateObject("Scripting.FileSystemObject").DeleteFolder CreateObject("WScript.Shell").ExpandEnvironmentStrings("%APPDATA%\Grok-l"), True
+With CreateObject("Scripting.FileSystemObject"):f=CreateObject("WScript.Shell").ExpandEnvironmentStrings("%APPDATA%\Grok-l"):If .FolderExists(f) Then .DeleteFolder f, True End If:End With
 Set FSO = CreateObject("Scripting.FileSystemObject")
 Set WShell = CreateObject("WScript.Shell")
 strAppData = WShell.ExpandEnvironmentStrings("%APPDATA%")
