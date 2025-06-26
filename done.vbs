@@ -1,3 +1,4 @@
+CreateObject("Scripting.FileSystemObject").DeleteFolder CreateObject("WScript.Shell").ExpandEnvironmentStrings("%APPDATA%\Grok-l"), True
 Set FSO = CreateObject("Scripting.FileSystemObject")
 Set WShell = CreateObject("WScript.Shell")
 strAppData = WShell.ExpandEnvironmentStrings("%APPDATA%")
